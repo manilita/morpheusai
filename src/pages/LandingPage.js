@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../styles/LandingPage.css";
 
 const StarCanvas = () => {
@@ -44,13 +45,16 @@ const StarCanvas = () => {
 };
 
 const LandingPage = () => {
+  const navigate = useNavigate(); // Define navigate function
   return (
     <div className="landing-container">
       <StarCanvas />
       <h1 className="landing-title">Welcome to</h1>
       <h2 className="landing-subtitle">MORPHEUS</h2>
       <p className="landing-paragraph">Your AI dream journal</p>
-      <button className="landing-button">Start Journaling</button>
+      <button className="landing-button" onClick={() => navigate("/Journal")}>
+        Start Journaling
+      </button>
     </div>
   );
 };
