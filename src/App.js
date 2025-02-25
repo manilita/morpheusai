@@ -1,10 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to Morpheus</h1>
+    <div>
+      <LandingPage />
     </div>
   );
 }
