@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Sidebar from "../pages/Sidebar";
 import "../styles/JournalPage.css";
 
 const JournalPage = () => {
@@ -25,6 +26,7 @@ const JournalPage = () => {
 
   return (
     <div className="journal-container">
+      <Sidebar /> {/* Sidebar navigation */}
       <h2 className="journal-title">What did you dream about?</h2>
       <textarea
         className="journal-input"
