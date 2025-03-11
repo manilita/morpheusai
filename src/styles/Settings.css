@@ -1,0 +1,78 @@
+.settings-container {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom, #0e0b1d, #1b1035);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    position: relative;
+  }
+  
+  /* Close button */
+  .close-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  
+  .profile-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    text-align: center;
+    width: 350px;
+    position: relative;
+  }
+  
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(to top left, #8a2be2, #4b0082);
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+  }
+  
+  .email, .change-password {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .edit-icon {
+    margin-left: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .edit-icon:hover {
+    color: #ffdd57;
+  }
+  
+  /* Download button */
+  .download-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #8a2be2;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .download-button:hover {
+    background-color: #a44de0;
+  }
+  

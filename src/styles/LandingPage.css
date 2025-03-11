@@ -1,5 +1,6 @@
 /* src/styles/LandingPage.css */
 
+
 .landing-container {
     height: 100vh;
     width: 100%;
@@ -34,6 +35,8 @@
     letter-spacing: 0.5px;
   }
   
+
+  
   .landing-button {
     margin-top: 1.5rem;
     padding: 12px 24px;
@@ -50,4 +53,15 @@
   .landing-button:hover {
     background-color: #8a2be2;
   }
+  
+  .star-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; /* Ensure it stays behind other content */
+    pointer-events: none;
+  }
+
   
