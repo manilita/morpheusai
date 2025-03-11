@@ -5,7 +5,7 @@ import "../styles/JournalPage.css";
 
 const JournalPage = () => {
   const [userText, setUserText] = useState("");
-  const [aiResponse, setAiResponse] = useState("");
+  const [aiResponse] = useState("");
 
   const handleSubmit = async () => {
     if (!userText.trim()) return;

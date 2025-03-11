@@ -11,7 +11,7 @@ const LoginPage = () => {
                 <input type="password" className="login-password" placeholder="password"/>
             </form>
             <button className="login-button" onClick={() => navigate("/journal")}>Sign Up</button>
-            <p className="signup-text">Don't have an account? <Link to="/SignupPage" className="Signup-Link">Sign up!</Link></p>
+            <p className="signup-text">Don't have an account? <Link to="/Signup" className="Signup-Link">Sign up!</Link></p>
         </div>
     );
 };
