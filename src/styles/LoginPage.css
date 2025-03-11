@@ -1,0 +1,50 @@
+.login-container {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom, #0e0b1d, #1b1035);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    color: white;
+    text-align: center;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center inputs horizontally */
+    width: 100%;
+    gap: 15px; /* Add spacing between inputs */
+}
+
+.login-email, .login-password {
+    width: 80%;
+    max-width: 300px;
+    height: 40px;
+    background-color: var(--dark-blue);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    color: grey;
+    border: 1px solid white; /* Optional: Better visibility */
+}
+
+.login-button {
+    margin-top: 1rem; /* Reduce space above the button */
+    padding: 8px 16px; /* Decrease padding to shrink button size */
+    font-size: 1rem; /* Reduce font size */
+    font-weight: 500; /* Slightly decrease font weight */
+    color: white;
+    background-color: transparent;
+    border: 2px solid #8a2be2;
+    border-radius: 20px; /* Reduce border radius */
+    cursor: pointer;
+    width: 150px; /* Set a fixed width */
+    text-align: center; /* Ensure text is centered */
+}
+
+.login-button:hover {
+    background-color: #8a2be2; /* Optional: Add hover effect */
+    color: white;
+}
