@@ -6,36 +6,35 @@ const axios = require("axios");
 const app = express();
 app.use(express.json());
 app.use(
-    cors({
-      origin: "http://localhost:3000", // Replace with your frontend URL
-      methods: ["POST"],
-      allowedHeaders: ["Content-Type", "Authorization"],
-    })
-  );
-  
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.post("/generate", async (req, res) => {
   try {
     const { userText } = req.body;
+    console.log("Received request:", userText);
 
     const response = await axios.post(
-      "https://api.openai.com/v1/completions",
-      {
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: `Analyze this dream: ${userText}` }],
-        max_tokens: 150,
-      },
+      "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct",
+      { inputs: `Analyze this dream: ${userText}` },
       {
         headers: {
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`, // Optional API Key
           "Content-Type": "application/json",
         },
       }
     );
 
-    res.json({ response: response.data.choices[0].message.content });
+    console.log("Hugging Face Response:", response.data);
+    res.json({ response: response.data[0].generated_text });
+
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Hugging Face API Error:", error.response?.data || error.message);
+    res.status(500).json({ error: "Failed to fetch AI response" });
   }
 });
 
