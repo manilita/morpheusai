@@ -12,7 +12,7 @@ const SignupPage = () => {
                 <input type="password" className="password-confirm" placeholder="confirm password"/>
             </form>
             <button className="signup-button" onClick={() => navigate("/journal")}>Sign Up</button>
-            <p className="signin-text">Already have an account? <Link to="/LoginPage" className="Signin-Link">Sign in!</Link></p>
+            <p className="signin-text">Already have an account? <Link to="/Login" className="Signin-Link">Sign in!</Link></p>
         </div>
     );
 };

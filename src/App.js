@@ -4,6 +4,8 @@ import LandingPage from "./pages/LandingPage"; //landing page
 import JournalPage from "./pages/JournalPage"; // journal page 
 import DreamDiary from "./pages/DreamDiary"; // Diary page 
 import Settings from "./pages/Settings"; // Import Settings Page
+import LoginPage from "./pages/LoginPage"; 
+import SignupPage from "./pages/SignupPage";
 
 
 function App() {
@@ -14,6 +16,8 @@ function App() {
         <Route path="/journal" element={<JournalPage />} /> 
         <Route path="/dream-diary" element={<DreamDiary/>} />
         <Route path="/settings" element={<Settings/>} />
+        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/Signup" element={<SignupPage/>}/>
       </Routes>
     </Router>
   );
