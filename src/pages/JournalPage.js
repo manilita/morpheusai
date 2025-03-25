@@ -9,18 +9,23 @@ const JournalPage = () => {
 
   const handleSubmit = async () => {
     if (!userText.trim()) return;
-
+  
     try {
+      console.log("Sending request to backend...");
+      setUserText("Analyzing your dream..."); // Show temporary loading message
       const response = await axios.post("http://localhost:5050/generate", { userText });
-      setAiResponse(response.data.response);
+      console.log("AI Response:", response.data);
+      
+      setUserText(response.data.response); // Replace input with AI response
     } catch (error) {
-      setAiResponse("Error fetching AI response.");
+      console.error("Frontend API Error:", error);
+      setUserText("Error fetching AI response.");
     }
   };
-
+  
   return (
     <div className="journal-container">
-      <Sidebar /> {/* Sidebar navigation */}
+      <Sidebar />
       <h2 className="journal-title">What did you dream about?</h2>
       <textarea
         className="journal-input"
