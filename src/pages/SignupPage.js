@@ -1,5 +1,6 @@
 import {useNavigate, Link} from "react-router-dom";
 import "../styles/SignupPage.css";
+import StarCanvas from "../components/starCanvas";
 
 const SignupPage = () => {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ const SignupPage = () => {
             </form>
             <button className="signup-button" onClick={() => navigate("/journal")}>Sign Up</button>
             <p className="signin-text">Already have an account? <Link to="/Login" className="Signin-Link">Sign in!</Link></p>
+            <StarCanvas />
         </div>
     );
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/DreamDiary.css";
 import { FaArrowLeft, FaEdit, FaTrash } from "react-icons/fa";
+import StarCanvas from "../components/starCanvas";
 
 const DreamDiary = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const DreamDiary = () => {
 
   return (
     <div className="dream-diary-container">
+
       {/* Back Button */}
       <button className="back-button" onClick={() => navigate(-1)}>
         <FaArrowLeft />
@@ -46,6 +48,7 @@ const DreamDiary = () => {
           </li>
         ))}
       </ul>
+      <StarCanvas />
     </div>
   );
 };

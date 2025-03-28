@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Sidebar from "../pages/Sidebar";
 import "../styles/JournalPage.css";
+import StarCanvas from "../components/starCanvas";
 
 const JournalPage = () => {
   const [userText, setUserText] = useState("");
@@ -42,6 +43,7 @@ const JournalPage = () => {
           <p>{aiResponse}</p>
         </div>
       )}
+      <StarCanvas />
     </div>
   );
 };
