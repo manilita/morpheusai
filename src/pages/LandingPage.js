@@ -52,7 +52,7 @@ const LandingPage = () => {
       <h1 className="landing-title">Welcome to</h1>
       <h2 className="landing-subtitle">MORPHEUS</h2>
       <p className="landing-paragraph">Your AI dream journal</p>
-      <button className="landing-button" onClick={() => navigate("/Journal")}>
+      <button className="landing-button" onClick={() => navigate("/Login")}>
         Start Journaling
       </button>
     </div>
