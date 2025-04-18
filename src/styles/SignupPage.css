@@ -19,7 +19,7 @@
     z-index: 1;
 }
 
-.login-email, .login-password, .password-confirm {
+.login-email, .userName, .login-password, .password-confirm {
     width: 80%;
     max-width: 300px;
     height: 40px;

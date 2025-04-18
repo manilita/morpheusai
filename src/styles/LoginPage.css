@@ -20,7 +20,7 @@
     z-index: 1;
 }
 
-.login-email, .login-password {
+.userName, .login-password {
     width: 80%;
     max-width: 300px;
     height: 40px;
