@@ -14,9 +14,10 @@ def get_db_connection():
             host="localhost",
             user="root",
             password="121212",
-            database="morpheusUsers"
+            database="users"
         )
         return connection
+    
     except mysql.connector.Error as err:
         return None
     
@@ -33,7 +34,7 @@ def get_users():
         return jsonify({"error": "Database connection failed."}), 500
     
     cursor = conn.cursor(dictionary=True)
-    cursor.execute('SELECT * from morpheusUsers;')
+    cursor.execute('SELECT * from users;')
     users = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -51,7 +52,7 @@ def get_user(userID):
         return jsonify({"error": "Database connection failed."}), 500
     
     cursor = conn.cursor(dictionary=True)
-    cursor.execute('SELECT * FROM morpheusUsers WHERE id = %s;', (userID))
+    cursor.execute('SELECT * FROM users WHERE id = %s;', (userID))
     user = cursor.fetchone()
     cursor.close()
     conn.close()
@@ -80,7 +81,7 @@ def create_user():
     cursor = conn.cursor()
     try:
         cursor.execute(
-            'INSERT INTO morpheusUsers (username, email, password) VALUES (%s, %s, %s, %s)',
+            'INSERT INTO users (username, email, password) VALUES (%s, %s, %s, %s)',
             (username, email, password)
         )
         conn.commit()
@@ -95,4 +96,72 @@ def create_user():
 
 # Route: update a user
 
-        
+def update_user(userID):
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+    
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({"error": "Database connection failed."}), 500
+    
+    cursor = conn.cursor(dictionary=True)
+
+    # Check if user exists
+
+    cursor.execute('SELECT * FROM users WHERE id = %s', (userID))
+    user = cursor.fetchone()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    
+    # Update user fields
+    username = data.get('username', user['username'])
+    email = data.get('email', user['email'])
+    password = data.get('password', user['password'])
+
+    try:
+        cursor.execute(
+            'UPDATE users SET username = %s, email = %s, password = %s WHERE id = %s',
+            (username, email, password)
+        )
+
+        conn.commit()
+
+    except mysql.connector.Error as err:
+        return jsonify({"error": str(err)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+# Route: delete user
+def delete_user(userID):
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({"error": "Database connection failed."}), 500
+    
+    cursor = conn.cursor(dictionary=True)
+
+    # Check if user exists
+
+    cursor.execute('SELECT * FROM users WHERE id = %s', (userID))
+    user = cursor.fetchone()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    
+    try:
+        cursor.execute(
+            'DELETE FROM users WHERE id = %s', (userID)
+        )
+
+        conn.commit()
+
+    except mysql.connector.Error as err:
+        return jsonify({"error": str(err)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+    
+    return jsonify({"message": "User deleted successfully"}), 200
+
+if __name__ == '__main__':
+    app.run(debug=True)
