@@ -4,44 +4,37 @@ import "../styles/LoginPage.css";
 import StarCanvas from "../components/starCanvas";
 
 const LoginPage = ({ onLogin }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-    
-        try {
-            const response = await fetch('https://67cfa704823da0212a82e739.mockapi.io/:endpoint');
-    
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-    
-            const users = await response.json();
-    
-            const matchedUser = users.find(
-                (user) => user.username === username && user.password === password
-            );
-    
-            if (matchedUser) {
-                console.log("✅ Login successful:", matchedUser);
-                onLogin(matchedUser); // Could pass token or user ID if needed
-                navigate("/journal");
-            } else {
-                alert("❌ Incorrect username or password. Please try again.");
-            }
-        } catch (error) {
-            console.error("🔥 Fetch/Login Error:", error);
-            alert("⚠️ An error occurred while trying to log in. Please check your connection or try again later.");
+  
+    const handleLogin = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await fetch("https://67cfa704823da0212a82e739.mockapi.io/users");
+        const users = await response.json();
+  
+        const matchedUser = users.find(
+          (user) => user.username === username && user.password === password
+        );
+  
+        if (matchedUser) {
+          onLogin(matchedUser); // Optional: save token/user info
+          navigate("/journal");
+        } else {
+          alert("Incorrect username or password.");
         }
+      } catch (error) {
+        console.error("Login error:", error);
+        alert("An error occurred. Please try again later.");
+      }
     };
-    
-
+      
     return (
         <div className="login-container">
             <h1 className="login-title">Log in</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
                 <input
                     type="text"
                     className="userName"
