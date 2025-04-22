@@ -20,7 +20,7 @@ app.post("/generate", async (req, res) => {
 
     const response = await axios.post(
       "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct",
-      { inputs: `Analyze this dream: ${userText}` },
+      { inputs: `Turn this dream into a surreal short story:\n\nDream: ${userText}\n\nStory:` },
       {
         headers: {
           Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`, // Optional API Key

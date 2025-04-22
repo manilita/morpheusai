@@ -6,14 +6,34 @@ import StarCanvas from "../components/starCanvas";
 
 const JournalPage = () => {
   const [userText, setUserText] = useState("");
-  const [aiResponse] = useState("");
+  const [aiResponse,setAiResponse] = useState("");
 
+  const handleSave = async () => {
+    const entry = {
+      dream: userText,
+      story: aiResponse
+    };
+  
+    try {
+      await fetch('https://your-mockapi-or-flask-api/dreams', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry)
+      });
+  
+      alert("✅ Dream saved to your journal!");
+    } catch (err) {
+      console.error("Save failed:", err);
+      alert("⚠️ Failed to save dream.");
+    }
+  };
+  
   const handleSubmit = async () => {
     if (!userText.trim()) return;
   
     try {
       console.log("Sending request to backend...");
-      setUserText("Analyzing your dream..."); // Show temporary loading message
+      setUserText("Generating your dream story..."); // Show temporary loading message
       const response = await axios.post("http://localhost:5050/generate", { userText });
       console.log("AI Response:", response.data);
       
@@ -35,14 +55,19 @@ const JournalPage = () => {
         onChange={(e) => setUserText(e.target.value)}
       />
       <button className="send-button" onClick={handleSubmit}>
-        Analyze Dream
+        Generate Dream Story
       </button>
-      {aiResponse && (
-        <div className="ai-response">
-          <h3>AI Interpretation:</h3>
-          <p>{aiResponse}</p>
-        </div>
-      )}
+    <textarea
+      value={aiResponse}
+      onChange={(e) => setAiResponse(e.target.value)}
+      rows={6}
+      style={{ width: '100%', marginTop: '1rem' }}
+    />
+    <button onClick={handleSave} style={{ marginTop: '10px' }}>
+    Save to Dream Journal
+    </button>
+
+
       <StarCanvas />
     </div>
   );
