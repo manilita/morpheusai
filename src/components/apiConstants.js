@@ -1,0 +1,1 @@
+export const API_BASE_URL = "67cfa704823da0212a82e739.mockapi.io/:endpoint"

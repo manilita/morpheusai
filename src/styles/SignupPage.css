@@ -16,9 +16,10 @@
     align-items: center; /* Center inputs horizontally */
     width: 100%;
     gap: 15px; /* Add spacing between inputs */
+    z-index: 1;
 }
 
-.login-email, .login-password, .password-confirm {
+.login-email, .userName, .login-password, .password-confirm {
     width: 80%;
     max-width: 300px;
     height: 40px;
@@ -31,6 +32,7 @@
     font-size: 1rem;
     color: grey;
     border: 1px solid white; /* Optional: Better visibility */
+    z-index: 1;
 }
 
 .signup-button {
@@ -45,6 +47,7 @@
     cursor: pointer;
     width: 150px; /* Set a fixed width */
     text-align: center; /* Ensure text is centered */
+    z-index: 1;
 }
 
 .signup-button:hover {

@@ -14,6 +14,7 @@
     font-size: 1.5rem;
     color: #ff7eb3;
     margin-bottom: 20px;
+    z-index: 1;
   }
   
   .journal-input {
@@ -27,6 +28,7 @@
     color: white;
     outline: none;
     resize: none;
+    z-index: 1;
   }
   
   .send-button {
@@ -40,6 +42,7 @@
     border-radius: 10px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
+    z-index: 1;
   }
   
   .send-button:hover {

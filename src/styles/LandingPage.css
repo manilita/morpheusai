@@ -53,15 +53,15 @@
   .landing-button:hover {
     background-color: #8a2be2;
   }
-  
+/*
   .star-canvas {
     position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 0; /* Ensure it stays behind other content */
+    z-index: 0; /* Ensure it stays behind other content 
     pointer-events: none;
   }
-
+*/
   
