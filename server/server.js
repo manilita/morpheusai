@@ -19,15 +19,17 @@ app.post("/generate", async (req, res) => {
     console.log("Received request:", userText);
 
     const response = await axios.post(
-      "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct",
-      { inputs: `Turn this dream into a surreal short story:\n\nDream: ${userText}\n\nStory:` },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`, // Optional API Key
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct",
+  {
+    inputs: `Turn this dream into a surreal short story:\n\nDream: ${userText}\n\nStory:`
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+      "Content-Type": "application/json"
+    }
+  }
+);
 
     console.log("Hugging Face Response:", response.data);
     res.json({ response: response.data[0].generated_text });
