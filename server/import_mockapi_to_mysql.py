@@ -1,4 +1,4 @@
-import requests
+import requests # type: ignore
 import mysql.connector
 
 # 1. MockAPI Endpoint (update this if needed)
