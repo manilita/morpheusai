@@ -57,18 +57,24 @@ const JournalPage = () => {
       <button className="send-button" onClick={handleSubmit}>
         Generate Dream Story
       </button>
+      {aiResponse && (
+  <div className="ai-output">
+    <h3>AI-Generated Story:</h3>
     <textarea
+      readOnly
       value={aiResponse}
-      onChange={(e) => setAiResponse(e.target.value)}
-      rows={6}
-      style={{ width: '100%', marginTop: '1rem' }}
+      rows={8}
+      style={{ width: "100%", marginTop: "1rem", padding: "1rem" }}
     />
-    <button onClick={handleSave} style={{ marginTop: '10px' }}>
-    Save to Dream Journal
+    <button className="refine-button" onClick={() => {
+      setUserText(aiResponse);  // Let user move AI output back to input
+      setAiResponse("");        // Clear output area
+    }}>
+      Refine AI Output
     </button>
-
-
-      <StarCanvas />
+  </div> // ✅ this closes the ai-output div
+)}     
+<StarCanvas />
     </div>
   );
 };
