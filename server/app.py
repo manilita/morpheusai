@@ -16,7 +16,7 @@ def get_db_connection():
             host="localhost",
             user="root",
             password="121212",
-            database="users"
+            database="DreamJournal"
         )
         return connection
     

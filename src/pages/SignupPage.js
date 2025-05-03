@@ -52,7 +52,9 @@ const SignupPage = () => {
         <div className="login-container">
             <h1 className="login-title">Sign Up</h1>
             <form onSubmit={handleSignup}>
-                <input 
+              <div className="input-container">
+              <input 
+                    className="login-email"
                     type="email"
                     placeholder="Email"
                     value={email}
@@ -60,6 +62,7 @@ const SignupPage = () => {
                     required
                 />
                 <input 
+                    className="userName"
                     type="username" 
                     placeholder="Username"
                     value={username}
@@ -67,6 +70,7 @@ const SignupPage = () => {
                     required
                 />
                 <input 
+                    className="login-password"
                     type="password" 
                     placeholder="Password"
                     value={password}
@@ -74,12 +78,15 @@ const SignupPage = () => {
                     required
                 />
                 <input 
+                    className="password-confirm"
                     type="password" 
-                    placeholder="confirm password"
+                    placeholder="Confirm password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                 />
+              </div>
+                
             </form>
             <button className="signup-button" onClick={() => navigate("/journal")}>Sign Up</button>
             <p className="signin-text">Already have an account? <Link to="/Login" className="Signin-Link">Sign in!</Link></p>

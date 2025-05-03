@@ -22,7 +22,7 @@
 .login-email, .userName, .login-password, .password-confirm {
     width: 80%;
     max-width: 300px;
-    height: 40px;
+    height: 20px;
     background-color: var(--dark-blue);
     border-radius: 10px;
     display: flex;

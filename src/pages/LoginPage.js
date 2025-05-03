@@ -35,7 +35,8 @@ const LoginPage = ({ onLogin }) => {
         <div className="login-container">
             <h1 className="login-title">Log in</h1>
             <form onSubmit={handleLogin}>
-                <input
+              <div className="input-container">
+              <input
                     type="text"
                     className="userName"
                     placeholder="Username"
@@ -49,6 +50,8 @@ const LoginPage = ({ onLogin }) => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+              </div>
+                
                 <button type="submit" className="login-button">
                     Log In
                 </button>
