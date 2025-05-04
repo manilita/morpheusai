@@ -8,6 +8,7 @@
     color: white;
     text-align: center;
     position: relative;
+    z-index: 2;
   }
   
   /* Close button */
@@ -30,6 +31,7 @@
     text-align: center;
     width: 350px;
     position: relative;
+    z-index: 1;
   }
   
   .profile-avatar {

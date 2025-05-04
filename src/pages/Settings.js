@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Settings.css";
 import { FaTimes, FaEdit, FaDownload } from "react-icons/fa";
+import StarCanvas from "../components/starCanvas";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ const Settings = () => {
           Download All Dreams <FaDownload />
         </button>
       </div>
+      <StarCanvas />
     </div>
   );
 };

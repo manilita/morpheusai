@@ -1,28 +1,63 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Sidebar from "../pages/Sidebar";
 import "../styles/JournalPage.css";
+import StarCanvas from "../components/starCanvas";
 
 const JournalPage = () => {
   const [userText, setUserText] = useState("");
-  const [aiResponse] = useState("");
+  const [aiResponse,setAiResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async () => {
-    if (!userText.trim()) return;
+  const handleSave = async () => {
+    const entry = {
+      dream: userText,
+      story: aiResponse
+    };
   
     try {
-      console.log("Sending request to backend...");
-      setUserText("Analyzing your dream..."); // Show temporary loading message
-      const response = await axios.post("http://localhost:5050/generate", { userText });
-      console.log("AI Response:", response.data);
-      
-      setUserText(response.data.response); // Replace input with AI response
-    } catch (error) {
-      console.error("Frontend API Error:", error);
-      setUserText("Error fetching AI response.");
+      await fetch('https://your-mockapi-or-flask-api/dreams', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry)
+      });
+  
+      alert("✅ Dream saved to your journal!");
+    } catch (err) {
+      console.error("Save failed:", err);
+      alert("⚠️ Failed to save dream.");
     }
   };
   
+  const handleSubmit = async () => {
+    if (!userText.trim()) return;
+    setIsLoading(true);
+  
+    try {
+      console.log("Sending request to backend...");
+      const response = await fetch("http://localhost:5050/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt: userText })  // ✅ fixed
+      });
+      
+      const data = await response.json(); // ✅ parse response
+      console.log("AI Response:", data);
+  
+      if (data.story) {
+        setAiResponse(data.story);
+      } else {
+        setAiResponse("Error: No story returned.");
+      }
+    } catch (error) {
+      console.error("Frontend API Error:", error);
+      setAiResponse("Error fetching AI response.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+    
   return (
     <div className="journal-container">
       <Sidebar />
@@ -34,14 +69,35 @@ const JournalPage = () => {
         onChange={(e) => setUserText(e.target.value)}
       />
       <button className="send-button" onClick={handleSubmit}>
-        Analyze Dream
+        Generate Dream Story
       </button>
+      {isLoading && <p style={{ color: "#888", fontStyle: "italic" }}>✨ Generating your dream story...</p>}
+
       {aiResponse && (
-        <div className="ai-response">
-          <h3>AI Interpretation:</h3>
-          <p>{aiResponse}</p>
-        </div>
-      )}
+  <div className="ai-output">
+    <h3>AI-Generated Story:</h3>
+    <textarea
+    value={aiResponse}
+    onChange={(e) => setAiResponse(e.target.value)}
+    rows={8}
+    style={{ width: "100%", marginTop: "1rem", padding: "1rem" }}
+   />
+
+<div className="button-row">
+<button className="send-button" onClick={() => {
+  setUserText(aiResponse);
+  handleSubmit();
+}}>
+  Refine with AI
+</button>
+  <button className="save-button" onClick={handleSave}>
+  Save to Journal
+</button>
+</div>
+
+  </div> // ✅ this closes the ai-output div
+)}     
+<StarCanvas />
     </div>
   );
 };

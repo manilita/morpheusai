@@ -16,18 +16,21 @@
     align-items: center; /* Center inputs horizontally */
     width: 100%;
     gap: 15px; /* Add spacing between inputs */
+    background-color: #1b1035;
+    z-index: 1;
 }
 
-.login-email, .login-password {
+.userName, .login-password {
     width: 80%;
     max-width: 300px;
     height: 40px;
-    background-color: var(--dark-blue);
+    background-color: #121229;
     border-radius: 10px;
     padding: 10px;
     font-size: 1rem;
     color: grey;
     border: 1px solid white; /* Optional: Better visibility */
+    z-index: 1;
 }
 
 .login-button {
@@ -42,6 +45,7 @@
     cursor: pointer;
     width: 150px; /* Set a fixed width */
     text-align: center; /* Ensure text is centered */
+    z-index: 1;
 }
 
 .login-button:hover {
