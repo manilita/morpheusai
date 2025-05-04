@@ -21,7 +21,7 @@ app.post("/generate", async (req, res) => {
     const response = await axios.post(
       "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-125M",
       {
-        inputs: `Turn this into a short creative story:\n\n${userText} in one paragraph`,
+        inputs: `Turn this into a short creative story:\n\n${userText} in 400 characters or less`,
       },
       {
         headers: {

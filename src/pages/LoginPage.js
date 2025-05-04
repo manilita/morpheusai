@@ -22,6 +22,7 @@ const LoginPage = ({ onLogin }) => {
       );
 
       if (matchedUser) {
+        localStorage.setItem("user", JSON.stringify(matchedUser));
         onLogin && onLogin(matchedUser); // Pass user info if handler is provided
         navigate("/journal");
       } else {

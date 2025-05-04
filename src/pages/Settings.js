@@ -4,9 +4,11 @@ import "../styles/Settings.css";
 import { FaTimes, FaEdit, FaDownload } from "react-icons/fa";
 import StarCanvas from "../components/starCanvas";
 
-const Settings = () => {
+const Settings = ({user}) => {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("JohnDoe@example.com");
+  //if (!user) return <p>Please log in to see your profile.</p>;
 
   // Function to handle email edit
   const handleEmailEdit = () => {
