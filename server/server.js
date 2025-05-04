@@ -1,45 +1,34 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const axios = require("axios");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { Client } from "@gradio/client";
 
+dotenv.config();
 const app = express();
+const PORT = 5050;
+
+app.use(cors());
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: ["POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
 
 app.post("/generate", async (req, res) => {
+  const { prompt } = req.body;
+
   try {
-    const { userText } = req.body;
-    console.log("Received request:", userText);
+    const client = await Client.connect("victoriaaguz/dream-story-generator");
 
-    const response = await axios.post(
-      "https://api-inference.huggingface.co/models/EleutherAI/gpt-neo-125M",
-      {
-        inputs: `Turn this into a short creative story:\n\n${userText} in one paragraph`,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
-          "Content-Type": "application/json"
-        }
-      }
-    );
-    
-    
-    console.log("Hugging Face Response:", response.data);
-    res.json({ response: response.data[0].generated_text });
+    const result = await client.predict("/predict", { prompt });
 
+    if (result?.data && result.data.length > 0) {
+      res.json({ story: result.data[0] });
+    } else {
+      res.json({ story: "Error: No story returned from Hugging Face." });
+    }
   } catch (error) {
-    console.error("Hugging Face API Error:", error.response?.data || error.message);
-    res.status(500).json({ error: "Failed to fetch AI response" });
+    console.error("Error calling HF API:", error.message);
+    res.status(500).json({ story: "Server error calling Hugging Face." });
   }
 });
 
-const PORT = process.env.PORT || 5050;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
