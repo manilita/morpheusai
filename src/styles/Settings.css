@@ -42,7 +42,7 @@
     margin: 0 auto 20px auto;
   }
   
-  .email, .change-password {
+  .username, .change-password {
     font-size: 1.2rem;
     margin: 10px 0;
     display: flex;

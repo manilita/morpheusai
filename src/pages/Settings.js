@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Settings.css";
+import axios from "axios";
 import { FaTimes, FaEdit, FaDownload } from "react-icons/fa";
 import StarCanvas from "../components/starCanvas";
 
-const Settings = ({user}) => {
+const Settings = (/*{user}*/) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("JohnDoe@example.com");
   //if (!user) return <p>Please log in to see your profile.</p>;
+  /*
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    axios.get('http://127.0.0.1:5000/api/users/<int:user_id>')
+    .then(response => setUser(response.data))
+    .catch(error => console.error('Error fetching user data: ',
+      error));
+  }, []);
 
+  if(!user) return <div>Loading...</div>;
+*/
   // Function to handle email edit
+  
   const handleEmailEdit = () => {
     const newEmail = prompt("Enter your new email:", email);
     if (newEmail) setEmail(newEmail);
