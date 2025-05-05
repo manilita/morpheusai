@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import "../styles/LoginPage.css";
 import StarCanvas from "../components/starCanvas";
 
@@ -14,6 +15,10 @@ const LoginPage = ({onLogin}) => {
     setLoading(true);
   
     try {
+      const response = await axios.post("http://127.0.0.1:5000/api/login", {
+        username, password
+      }, {withCredentials: true});
+      /*
       const response = await fetch("http://127.0.0.1:5000/api/login", {
         method: "POST",
         headers: {
@@ -23,9 +28,9 @@ const LoginPage = ({onLogin}) => {
           username: username,
           password: password,
         }),
-      });
+      }, {withCredentials: true});*/
   
-      const result = await response.json();
+      const result = await response.data;
   
       if (response.status === 200) {
         localStorage.setItem("user", JSON.stringify(result));
@@ -65,7 +70,7 @@ const LoginPage = ({onLogin}) => {
           />
         </div>
 
-        <button className="login-button" type="submit" disabled={loading} onClick={handleLogin}>
+        <button className="login-button" type="submit" disabled={loading} >
           {loading ? "Logging in..." : "Log In"}
         </button>
       </form>

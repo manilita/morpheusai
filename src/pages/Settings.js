@@ -7,25 +7,30 @@ import StarCanvas from "../components/starCanvas";
 
 const Settings = (/*{user}*/) => {
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState("JohnDoe@example.com");
-  //if (!user) return <p>Please log in to see your profile.</p>;
-  /*
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    axios.get('http://127.0.0.1:5000/api/users/<int:user_id>')
-    .then(response => setUser(response.data))
-    .catch(error => console.error('Error fetching user data: ',
-      error));
-  }, []);
-
-  if(!user) return <div>Loading...</div>;
-*/
-  // Function to handle email edit
+  const [username, setUsername] = useState("manilita");
+  //const [password, setPassword] = useState("");
+  //const [email, setEmail] = useState("");
+  //const [loading, setLoading] = useState(true);
   
-  const handleEmailEdit = () => {
-    const newEmail = prompt("Enter your new email:", email);
-    if (newEmail) setEmail(newEmail);
+  useEffect(() => {
+    //const data = {username, password };
+    axios.get("http://127.0.0.1:5000/api/user_profile", {withCredentials: true})
+    .then((response) => {
+      console.log("User profile: ", response.data)
+      setUsername(response.data.Username);
+      //setEmail(response.data.Email)
+      //setLoading(false);
+    })
+    .catch((error) => {
+      console.error("Error fetching user data: ", error);
+      //setLoading(true);
+    });
+  }, []);
+  
+  // Function to handle username change
+  const handleUsernameEdit = () => {
+    const newUsername = prompt("Enter your new username:", username);
+    if (newUsername) setUsername(newUsername);
   };
 
   // Function to handle password change
@@ -38,6 +43,8 @@ const Settings = (/*{user}*/) => {
     alert("Downloading all dreams as a file...");
   };
 
+  //if(loading) return <div>Loading...</div>;
+
   return (
     <div className="settings-container">
       {/* Close Button */}
@@ -48,9 +55,9 @@ const Settings = (/*{user}*/) => {
       {/* Profile Section */}
       <div className="profile-card">
         <div className="profile-avatar"></div>
-        <p className="email">
-          {email}{" "}
-          <FaEdit className="edit-icon" onClick={handleEmailEdit} />
+        <p className="username">
+          {username}
+          <FaEdit className="edit-icon" onClick={handleUsernameEdit} />
         </p>
         <p className="change-password" onClick={handleChangePassword}>
           Change Password? <FaEdit className="edit-icon" />

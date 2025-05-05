@@ -96,37 +96,12 @@ def signup():
 
     return jsonify({"message": "User created successfully", "userID": user_id}), 201
 
-    '''data = request.get_json()
-
-    if not all(key in data for key in ["username", "password", "email"]):
-        return jsonify({"error": "Missing required fields"}), 400
-    
-    username = data['username']
-    password = data['password']
-    email = data['email']
-
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-
-    cursor.execute("SELECT * FROM Users WHERE Username = %s", (username,))
-    existing_user = cursor.fetchone()
-
-    if existing_user:
-        cursor.close()
-        conn.close()
-        return jsonify({"error": "Username already exists"}), 400
-    
-    hashedPW = hashPW(password)
-
-    create_user()
-    '''
-
-
 # Route: user profile
-@user_routes.route('/journal_entries', methods=['GET'])
+@user_routes.route('/user_profile', methods=['GET'])
 def profile():
+    print("current sesstion: ", session)
     if 'user_id' not in session:
-        return jsonify({"error": "user not loggied in"}), 401
+        return jsonify({"error": "user not logged in"}), 401
     
     user_id = session['user_id']
 
@@ -187,65 +162,6 @@ def get_user(userID):
     
     return jsonify(user), 200
 
-# Route: create new user
-'''
-@user_routes.route('/signup', methods=['POST'])
-def create_user(username, email, password):
-    # Hash the password for security
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    
-    conn = get_db_connection()
-    if not conn:
-        return jsonify({"error": "Database connection failed."}), 500
-    
-    cursor = conn.cursor()
-    try:
-        # Insert the new user into the database (user_id is auto-generated)
-        cursor.execute(
-            "INSERT INTO Users (Username, Email, Password) VALUES (%s, %s, %s)",
-            (username, email, hashed_password)
-        )
-        conn.commit()
-        user_id = cursor.lastrowid  # Get the ID of the newly created user
-    except mysql.connector.Error as err:
-        cursor.close()
-        conn.close()
-        return jsonify({"error": f"Database error: {str(err)}"}), 500
-    finally:
-        cursor.close()
-        conn.close()
-    
-    return user_id'''
-'''
-    data = request.get_json()
-    if not data or not all(key in data for key in ["user_id", "username", "email", "password"]):
-        return jsonify({"error": "Missing required fields"}), 400
-    
-    username = data["username"]
-    email = data["email"]
-    password = data["password"]
-    # first_name = data["first_name"]
-
-    conn = get_db_connection()
-    if not conn:
-        return jsonify({"error": "Database connection failed."}), 500
-    
-    cursor = conn.cursor()
-    try:
-        cursor.execute(
-            'INSERT INTO Users (User_ID, Username, Email, Password) VALUES (%s, %s, %s, %s)',
-            (username, email, password)
-        )
-        conn.commit()
-        userID = cursor.lastrowid
-    except mysql.connector.Error as err:
-        return jsonify({"error": str(err)}), 500
-    finally:
-        cursor.close()
-        conn.close()
-    
-    return jsonify({"message": "User created successfully", "userID": userID}), 201
-'''
 # Route: update a user
 @user_routes.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(userID):
