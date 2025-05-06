@@ -29,7 +29,7 @@ const SignupPage = () => {
       }
   
       try {
-        const response = await fetch("https://67cfa704823da0212a82e739.mockapi.io/users", {
+        const response = await fetch("http://127.0.0.1:5000/api/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -87,8 +87,9 @@ const SignupPage = () => {
                 />
               </div>
                 
+            
+            <button className="signup-button" onClick={handleSignup}>Sign Up</button>
             </form>
-            <button className="signup-button" onClick={() => navigate("/journal")}>Sign Up</button>
             <p className="signin-text">Already have an account? <Link to="/Login" className="Signin-Link">Sign in!</Link></p>
             <StarCanvas />
         </div>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import "../styles/LoginPage.css";
 import StarCanvas from "../components/starCanvas";
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({onLogin}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,27 +13,37 @@ const LoginPage = ({ onLogin }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     try {
-      const response = await fetch("https://67cfa704823da0212a82e739.mockapi.io/users");
-      const users = await response.json();
-
-      const matchedUser = users.find(
-        (user) => user.username === username && user.password === password
-      );
-
-      if (matchedUser) {
-        localStorage.setItem("user", JSON.stringify(matchedUser));
-        onLogin && onLogin(matchedUser); // Pass user info if handler is provided
+      const response = await axios.post("http://127.0.0.1:5000/api/login", {
+        username, password
+      }, {withCredentials: true});
+      /*
+      const response = await fetch("http://127.0.0.1:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      }, {withCredentials: true});*/
+  
+      const result = await response.data;
+  
+      if (response.status === 200) {
+        localStorage.setItem("user", JSON.stringify(result));
+        onLogin && onLogin(result); // Pass user info if handler is provided
         navigate("/journal");
       } else {
-        alert("Incorrect username or password.");
+        alert(result.error || "Incorrect username or password.");
       }
     } catch (error) {
       console.error("Login error:", error);
       alert("An error occurred. Please try again later.");
     }
-
+  
     setLoading(false);
   };
 
@@ -59,7 +70,7 @@ const LoginPage = ({ onLogin }) => {
           />
         </div>
 
-        <button className="login-button" type="submit" disabled={loading}>
+        <button className="login-button" type="submit" disabled={loading} >
           {loading ? "Logging in..." : "Log In"}
         </button>
       </form>
